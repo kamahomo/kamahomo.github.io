@@ -37,6 +37,15 @@
                 .then(response => {
                     if (response.ok) {
                         console.log('訊息發送成功！');
+                        // Disable all inputs in the form
+                        const form = document.querySelector('#feedback form');
+                        form.querySelectorAll('input, textarea, button').forEach(input => {
+                            input.disabled = true;
+                        });
+                        // Remove the #section from the URL
+                        window.location.hash = '';
+                        // Reload the website
+                        window.location.reload();
                     } else {
                         console.error('訊息發送失敗:', response.status, response.statusText);
                     }
