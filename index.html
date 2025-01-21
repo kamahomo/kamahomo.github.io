@@ -16,6 +16,39 @@
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css" />
     </noscript>
+    <script>
+        function sendDiscordMessage(name, message) {
+            const webhookURL = "https://discord.com/api/webhooks/1331267335666929744/Fmuxm8s7KuUWalXRf4SdChFVEheJrL6NNL5aOYOml-gtSzxYQuEQb_xn4PrqfFaoc4rs";
+
+            // 準備要發送的資料，Discord webhook 期望的格式是一個 JSON 物件
+            const data = {
+                username: name, // 發送者的名稱
+                content: message, // 發送的訊息內容
+            };
+
+            // 使用 fetch API 發送 POST 請求
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // 指定請求體的格式為 JSON
+                },
+                body: JSON.stringify(data), // 將 JavaScript 物件轉換成 JSON 字串
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('訊息發送成功！');
+                    } else {
+                        console.error('訊息發送失敗:', response.status, response.statusText);
+                    }
+                })
+                .catch(error => {
+                    console.error('發送訊息時發生錯誤:', error);
+                });
+        }
+
+        // 使用範例
+        // sendDiscordMessage("使用者A", "你好，這是一則測試訊息！");
+    </script>
 </head>
 
 <body class="is-preload">
@@ -90,7 +123,7 @@
             <!-- Contact -->
             <article id="feedback">
                 <h2 class="major">意見回饋</h2>
-                <form method="post" action="#">
+                <form method="post" action="#" onsubmit="event.preventDefault(); sendDiscordMessage(this.name.value, this.message.value);">
                     <div class="fields">
                         <div class="field">
                             <label for="name">名稱</label>
@@ -363,7 +396,8 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
         <!-- Footer -->
         <footer id="footer">
-            <p class="copyright">&copy; Template:<a href="https://html5up.net">HTML5 UP</a>. Modified by mc-okuno-server.</p>
+            <p class="copyright">&copy; Template:<a href="https://html5up.net">HTML5 UP</a>. Modified by
+                mc-okuno-server.</p>
         </footer>
 
     </div>
